@@ -1,4 +1,12 @@
+<div align="center">
+
+# $${\Huge{\textsf{{\color[rgb]{1,0,0}R}{\color[rgb]{1,0.5,0}A}{\color[rgb]{1,1,0}I}{\color[rgb]{0,1,0}N}{\color[rgb]{0,1,1}B}{\color[rgb]{0,0,1}O}{\color[rgb]{0.5,0,1}W}{\color[rgb]{1,0,1}~}{\color[rgb]{1,0,0}T}{\color[rgb]{1,0.5,0}A}{\color[rgb]{1,1,0}B}{\color[rgb]{0,1,0}L}{\color[rgb]{0,1,1}E}}}}$$
+
+</div>   
+
+<div align="center">
 ![Alt Text](https://media4.giphy.com/media/v1.Y2lkPTc5MGI3NjExbzY4d3pkeXA1eDJpcnB2b3Rod2k0azF2OXBhNWI3dWhuMXRpZ3V6cCZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/ZJlesIV8TnabS/giphy.gif)
+</div>
 # 🔐 Password Hashing & Salting Demo
 
 Demonstrates SHA-256 hashing with and without salting applied to a list of common passwords, exporting the results to a structured Excel table for side-by-side comparison.
