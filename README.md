@@ -1,6 +1,6 @@
 <div align="center">
 
-# 🌈 RAINBOW TABLE 🌈
+# 🟥🟧🟨🟩🟦🟪 𝐑𝐀𝐈𝐍𝐁𝐎𝐖 𝐓𝐀𝐁𝐋𝐄
 
 <p align="center">
   <img
