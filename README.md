@@ -1,6 +1,6 @@
 <div align="center">
 
-# $${\Huge{\textsf{{\color[rgb]{1,0,0}R}{\color[rgb]{1,0.45,0}A}{\color[rgb]{0.85,0.65,0}I}{\color[rgb]{0,0.7,0}N}{\color[rgb]{0,0.75,0.75}B}{\color[rgb]{0,0.35,1}O}{\color[rgb]{0.45,0,1}W}{\color[rgb]{0.8,0,0.8}~}{\color[rgb]{1,0,0}T}{\color[rgb]{1,0.45,0}A}{\color[rgb]{0.85,0.65,0}B}{\color[rgb]{0,0.7,0}L}{\color[rgb]{0,0.75,0.75}E}}}}$$
+# 🌈 RAINBOW TABLE 🌈
 
 <p align="center">
   <img
@@ -31,11 +31,11 @@ The generated spreadsheet makes it easy to visualize how salting completely chan
 
 # 📁 Project Structure
 
-| File                   | Description                                                                                        |
-| ---------------------- | -------------------------------------------------------------------------------------------------- |
-| `hasher.py`            | Reads passwords, computes SHA-256 hashes, generates random salts, and exports the results to Excel |
-| `popularPasswords.txt` | Input dataset containing one password per line                                                     |
-| `hash_salt_demo.xlsx`  | Generated output containing the comparison table                                                   |
+| File                   | Description                                                                                         |
+| ---------------------- | --------------------------------------------------------------------------------------------------- |
+| `hasher.py`            | Reads passwords, computes SHA-256 hashes, generates random salts, and exports the results to Excel. |
+| `popularPasswords.txt` | Input dataset containing one password per line.                                                     |
+| `hash_salt_demo.xlsx`  | Generated spreadsheet comparing unsalted and salted hashes.                                         |
 
 ---
 
@@ -49,98 +49,110 @@ Each password appears **three times**, once for each randomly generated salt.
 | password123 | Same every run | Random | Different      |
 | password123 | Same every run | Random | Different      |
 
-This demonstrates two important properties:
+---
 
-✅ **Without a salt**
+## Without a Salt
 
-* Every identical password always produces the exact same SHA-256 hash.
-* Attackers can search massive precomputed Rainbow Tables to recover passwords almost instantly.
-
-❌ Example
+Every identical password always produces the **exact same SHA-256 hash**.
 
 ```
 password123
-↓
+        │
+        ▼
 ef92b778...
 ```
 
-Every user using **password123** would have exactly the same stored hash.
+Every user with the password `password123` would have the **same stored hash**.
+
+Because the output is deterministic:
+
+* ✅ Duplicate passwords are immediately visible.
+* ✅ Attackers can use precomputed Rainbow Tables.
+* ✅ Large password databases can be cracked much faster.
 
 ---
 
-✅ **With a random salt**
+## With a Random Salt
+
+A random salt is added before hashing.
 
 ```
 password123 + 7A9F12...
-↓
+        │
+        ▼
 6ef31c8b...
 
 password123 + 91D4AB...
-↓
+        │
+        ▼
 ef4c2b1a...
 
 password123 + 52C7F9...
-↓
+        │
+        ▼
 9db3eac5...
 ```
 
-Even though the password never changed, every resulting hash is completely different.
+Although the password never changes, **every resulting hash is completely different**.
 
-This makes Rainbow Tables effectively useless because an attacker would need to generate a brand-new table for every unique salt.
+This means:
+
+* Every stored password becomes unique.
+* Duplicate passwords are hidden.
+* Rainbow Tables become effectively useless.
+* Attackers must brute-force each password individually.
 
 ---
 
 # 🔒 Why Salting Matters
 
-Without salting:
-
-* Identical passwords have identical hashes
-* Rainbow Tables work immediately
-* Large password databases can be cracked efficiently
-
-With salting:
-
-* Every stored password becomes unique
-* Duplicate passwords are hidden
-* Rainbow Tables become computationally infeasible
-* Attackers must brute-force each password individually
+| Without Salt                                 | With Random Salt                          |
+| -------------------------------------------- | ----------------------------------------- |
+| Identical passwords produce identical hashes | Every password hash is unique             |
+| Duplicate passwords are obvious              | Duplicate passwords are hidden            |
+| Rainbow Tables work immediately              | Rainbow Tables become impractical         |
+| Fast SHA-256 enables rapid guessing          | Each password must be attacked separately |
 
 ---
 
 # ⚡ Modern Password Storage
 
-While this project uses **SHA-256** for educational purposes, modern applications **should not** store passwords using SHA-256 alone.
+Although this project uses **SHA-256** for educational purposes, modern applications **should not** store passwords using SHA-256 alone.
 
-Instead, use dedicated password hashing algorithms designed to be intentionally slow:
+Instead, use password hashing algorithms specifically designed to resist brute-force attacks:
 
-* Argon2id *(recommended)*
-* bcrypt
-* scrypt
-* PBKDF2
+* ✅ Argon2id *(recommended)*
+* ✅ bcrypt
+* ✅ scrypt
+* ✅ PBKDF2
 
-These algorithms combine:
+These algorithms include:
 
 * Random salts
 * Configurable computational cost
-* Memory hardness (Argon2 and scrypt)
+* Memory hardness (Argon2id and scrypt)
 
-Together they dramatically increase the cost of password cracking compared to fast cryptographic hashes like SHA-256.
+Unlike SHA-256, they are intentionally slow, making password cracking dramatically more expensive.
 
 ---
 
 # ⚙️ Installation
 
+Install the required packages:
+
 ```bash
 pip install pandas openpyxl
 ```
 
-Clone the repository and place your password list in:
+Clone the repository.
+
+Place your password list inside:
 
 ```
 popularPasswords.txt
 ```
 
-Run:
+Run the script:
 
 ```bash
 python hasher.py
@@ -150,17 +162,17 @@ python hasher.py
 
 # 📄 Generated Spreadsheet
 
-The output Excel file contains the following columns:
+The Excel output contains the following columns.
 
-| Column        | Description                          |
-| ------------- | ------------------------------------ |
-| `password`    | Original plaintext password          |
-| `clean_hash`  | SHA-256 of the original password     |
-| `salt_id`     | Salt iteration (Salt #1–3)           |
-| `salt_value`  | Random 32-character hexadecimal salt |
-| `salted_hash` | SHA-256 of `password + salt`         |
+| Column        | Description                           |
+| ------------- | ------------------------------------- |
+| `password`    | Original plaintext password           |
+| `clean_hash`  | SHA-256 hash of the original password |
+| `salt_id`     | Salt iteration (`Salt #1`–`Salt #3`)  |
+| `salt_value`  | Random 32-character hexadecimal salt  |
+| `salted_hash` | SHA-256 hash of `password + salt`     |
 
-Each password produces three rows, allowing direct comparison between deterministic hashing and salted hashing.
+Each password generates **three rows**, making it easy to compare deterministic hashing with salted hashing.
 
 ---
 
@@ -169,9 +181,20 @@ Each password produces three rows, allowing direct comparison between determinis
 This project is intended for:
 
 * Cybersecurity students
-* Digital forensics courses
-* Secure software development classes
-* Password security demonstrations
-* Cryptography fundamentals
+* Secure software development courses
+* Digital forensics classes
+* Cryptography demonstrations
+* Password security workshops
+* Anyone learning why password salting is essential
 
-It provides a practical demonstration of why password salting is essential and why modern password hashing algorithms remain the industry standard.
+It provides a practical demonstration of why modern systems use **unique salts** together with **slow password hashing algorithms** to securely store passwords.
+
+---
+
+<div align="center">
+
+### ⭐ If this project helped you learn something, consider giving it a star!
+
+Made for cybersecurity education and password security demonstrations.
+
+</div>
