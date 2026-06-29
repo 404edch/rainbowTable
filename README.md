@@ -1,3 +1,4 @@
+![Alt Text](https://media4.giphy.com/media/v1.Y2lkPTc5MGI3NjExbzY4d3pkeXA1eDJpcnB2b3Rod2k0azF2OXBhNWI3dWhuMXRpZ3V6cCZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/ZJlesIV8TnabS/giphy.gif)
 # 🔐 Password Hashing & Salting Demo
 
 Demonstrates SHA-256 hashing with and without salting applied to a list of common passwords, exporting the results to a structured Excel table for side-by-side comparison.
